@@ -692,6 +692,7 @@ import akka.stream.scaladsl.Source
     var batch =
       new BatchStatementBuilder(BatchType.UNLOGGED).build().setExecutionProfileName(journalSettings.writeProfile)
     batch = body(batch)
+    log.debug(s"Executing batch size [${batch.size}]")
     session.underlying().flatMap(_.executeAsync(batch).toScala).map(_ => ())
   }
 
